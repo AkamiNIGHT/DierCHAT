@@ -1,4 +1,4 @@
 {
-  "apiBaseUrl": "https://akaminight.github.io",
-  "wsUrl": "https://akaminight.github.io"
+  "apiBaseUrl": "http://31.148.99.40:9000",
+  "wsUrl": "http://31.148.99.40:9000"
 }

@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
   const apiTarget = `http://127.0.0.1:${apiPort}`;
   const wsTarget = `ws://127.0.0.1:${apiPort}`;
 
-  /** GitHub Pages: VITE_BASE_PATH=/имя-репо/ (со слэшами). Electron/Capacitor: ./ */
+  /** GitHub Pages: VITE_BASE_PATH=/имя-репо/ (со слэшами). Локально: ./ */
   const baseRaw = (env.VITE_BASE_PATH || process.env.VITE_BASE_PATH || './').trim();
   const base =
     baseRaw === './' || baseRaw === '.'

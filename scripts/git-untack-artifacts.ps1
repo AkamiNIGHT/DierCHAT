@@ -5,8 +5,6 @@ $ErrorActionPreference = 'Continue'
 Set-Location (Split-Path $PSScriptRoot -Parent)
 
 $dirs = @(
-  'DIERbrowser/bin',
-  'DIERbrowser/obj',
   'DierCHAT-Desktop/release',
   'DierCHAT-Server/media'
 )

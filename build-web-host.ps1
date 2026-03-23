@@ -8,4 +8,4 @@ if (-not (Test-Path (Join-Path $desktop "package.json"))) {
     Write-Error "Не найден DierCHAT-Desktop\package.json. Запускайте скрипт из корня папки DierCHAT."
 }
 Set-Location $desktop
-npm run build:web:host
+npm run build:web

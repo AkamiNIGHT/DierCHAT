@@ -17,8 +17,8 @@ Start-Process cmd -ArgumentList '/k', "cd /d `"$base\DierCHAT-Server`" && go run
 
 Start-Sleep -Seconds 3
 
-Write-Host "[2/2] Starting desktop app..."
+Write-Host "[2/2] Starting Vite dev server (web client)..."
 Start-Process cmd -ArgumentList '/k', "cd /d `"$base\DierCHAT-Desktop`" && npm run dev"
 
-Write-Host "Done. Two windows should open."
-Write-Host "Server: http://localhost:9000"
+Write-Host "Done. Open the Vite URL in browser (usually http://localhost:5173)."
+Write-Host "Server: see DierCHAT-Server config for port."

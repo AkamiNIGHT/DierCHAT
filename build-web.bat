@@ -12,7 +12,7 @@ set SERVER=%ROOT%DierCHAT-Server
 REM 1. Сборка фронтенда
 echo [1/2] Сборка фронтенда...
 cd /d "%DESKTOP%"
-call npm run build
+call npm run build:web
 if %errorlevel% neq 0 (
   echo [ОШИБКА] Не удалось собрать фронтенд
   pause

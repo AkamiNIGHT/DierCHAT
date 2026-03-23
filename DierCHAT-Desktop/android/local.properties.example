@@ -1,3 +1,0 @@
-# Copy this file to local.properties (gitignored) and fix the path.
-# Or set ANDROID_HOME — scripts can generate local.properties automatically.
-sdk.dir=C\:\\Users\\YOUR_USER\\AppData\\Local\\Android\\Sdk

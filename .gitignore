@@ -7,13 +7,9 @@ deploy-host.local.env
 node_modules/
 **/node_modules/
 
-# Сборка Vite / Electron (на CI собирается заново)
+# Сборка Vite (на CI собирается заново)
 DierCHAT-Desktop/dist/
 DierCHAT-Desktop/release/
-
-# DIERbrowser (.NET): только артефакты сборки; исходники *.cs — в git
-DIERbrowser/bin/
-DIERbrowser/obj/
 
 # Vite кэш
 DierCHAT-Desktop/node_modules/.vite/
@@ -45,19 +41,6 @@ DierCHAT-Server/aqtinstall.log
 # Архивы и пакеты деплоя (пересобирайте при необходимости)
 *.zip
 deploy-package/
-
-# Собранный DIERbrowser.exe для вшивания в Electron (npm run browser:pack-win)
-DierCHAT-Desktop/browser-bundle/DIERbrowser.exe
-
-# Android: подпись APK (шаблон android/keystore.properties.example)
-DierCHAT-Desktop/android/keystore.properties
-DierCHAT-Desktop/android/release.keystore
-# Gradle / сборки Android (Capacitor кладёт build и внутри node_modules — не в git)
-DierCHAT-Desktop/android/**/build/
-DierCHAT-Desktop/android/.gradle/
-DierCHAT-Desktop/android/local.properties
-DierCHAT-Desktop/android/app/release/
-DierCHAT-Desktop/android/captures/
 
 # Тяжёлые сторонние деревья исходников (не нужны для CI/GitHub Pages)
 firefox-main/

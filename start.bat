@@ -26,12 +26,12 @@ start "DierCHAT Server" cmd /k "cd /d %~dp0DierCHAT-Server && go run ./cmd/serve
 
 timeout /t 3 /nobreak > nul
 
-echo [2/2] Запуск приложения...
-start "DierCHAT Desktop" cmd /k "cd /d %~dp0DierCHAT-Desktop && npm run dev"
+echo [2/2] Запуск веб-клиента (Vite)...
+start "DierCHAT Web" cmd /k "cd /d %~dp0DierCHAT-Desktop && npm run dev"
 
 echo.
-echo Готово! Должно открыться окно приложения.
-echo Сервер: http://localhost:9000
+echo Готово! Откройте в браузере URL из окна Vite (обычно http://localhost:5173).
+echo API: прокси на порт из config (см. vite.config.ts / .env.development.local).
 echo.
-echo Закройте окна "DierCHAT Server" и "DierCHAT Desktop" для остановки.
+echo Закройте окна "DierCHAT Server" и "DierCHAT Web" для остановки.
 pause

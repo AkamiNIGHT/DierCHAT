@@ -1,86 +1,14 @@
 {
-  "name": "dierchat-desktop",
+  "name": "dierchat-web",
   "version": "1.1.2",
-  "description": "DierCHAT — Мессенджер для России",
+  "description": "DierCHAT — веб-клиент (React + Vite) для сервера DierCHAT-Server",
   "author": "DierCHAT",
-  "main": "dist/main/main.js",
+  "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm run dev:renderer\" \"npm run dev:main\"",
-    "dev:renderer": "node --max-old-space-size=16384 node_modules/vite/bin/vite.js",
-    "dev:web": "node --max-old-space-size=16384 node_modules/vite/bin/vite.js",
-    "dev:vite-only": "node --max-old-space-size=16384 node_modules/vite/bin/vite.js",
-    "dev:main": "node --max-old-space-size=4096 node_modules/typescript/lib/tsc.js -p tsconfig.main.json && electron .",
-    "build": "tsc -p tsconfig.main.json && vite build",
+    "dev": "node --max-old-space-size=16384 node_modules/vite/bin/vite.js",
+    "build": "vite build",
     "build:web": "vite build",
-    "cap:sync": "npm run build:web && npx cap sync android",
-    "android:open": "npx cap open android",
-    "android:build:debug": "npm run cap:sync && node scripts/android-gradle.cjs assembleDebug && node scripts/copy-android-apk.cjs debug",
-    "android:build:debug:unix": "npm run cap:sync && node scripts/android-gradle.cjs assembleDebug && node scripts/copy-android-apk.cjs debug",
-    "android:build:release": "npm run cap:sync && node scripts/android-gradle.cjs assembleRelease && node scripts/copy-android-apk.cjs release",
-    "start": "electron .",
-    "package": "npm run build && electron-builder",
-    "package:portable": "npm run build && electron-builder --win portable --x64",
-    "package:win": "npm run build && electron-builder --win portable nsis --x64",
-    "browser:pack-win": "node scripts/bundle-dierbrowser-windows.cjs",
-    "package:win:with-browser": "npm run browser:pack-win && npm run package:win",
-    "package:win:installer": "npm run build && electron-builder --win nsis --x64",
-    "release:windows": "npm run package:win",
-    "release:android:debug": "npm run android:build:debug",
-    "release:android:release": "npm run android:build:release",
-    "release:print-api": "node scripts/print-release-api.cjs",
-    "release:all": "node scripts/print-release-api.cjs && npm run package:win && npm run android:build:debug",
-    "release:all:with-browser": "node scripts/print-release-api.cjs && npm run package:win:with-browser && npm run android:build:debug",
-    "verify:host-env": "node scripts/verify-prod-env.cjs",
-    "build:host": "npm run verify:host-env && node scripts/print-release-api.cjs && npm run build",
-    "build:web:host": "npm run verify:host-env && node scripts/print-release-api.cjs && vite build",
-    "package:host": "npm run verify:host-env && node scripts/print-release-api.cjs && npm run package:win",
-    "package:host:installer": "npm run verify:host-env && node scripts/print-release-api.cjs && npm run package:win:installer",
-    "release:host:win": "npm run package:host",
-    "cap:sync:host": "npm run build:web:host && npx cap sync android",
-    "android:init-keystore": "powershell -ExecutionPolicy Bypass -File scripts/android-init-keystore.ps1",
-    "android:build:release:host": "npm run cap:sync:host && node scripts/android-gradle.cjs clean assembleDebug && node scripts/copy-android-apk.cjs debug",
-    "android:build:store:host": "npm run cap:sync:host && node scripts/android-gradle.cjs clean assembleRelease && node scripts/copy-android-apk.cjs release",
-    "android:build:debug:host": "npm run cap:sync:host && node scripts/android-gradle.cjs assembleDebug && node scripts/copy-android-apk.cjs debug",
-    "release:host:all": "npm run package:host && npm run android:build:release:host"
-  },
-  "build": {
-    "appId": "com.dierchat.desktop",
-    "productName": "DierCHAT",
-    "afterPack": "scripts/electron-after-pack.cjs",
-    "files": [
-      "**/*",
-      "!android",
-      "!android/**",
-      "!**/node_modules/@capacitor/**",
-      "!browser-bundle",
-      "!browser-bundle/**"
-    ],
-    "directories": {
-      "output": "release"
-    },
-    "win": {
-      "target": [
-        {
-          "target": "portable",
-          "arch": [
-            "x64"
-          ]
-        },
-        "nsis"
-      ],
-      "icon": "public/icon.jpg",
-      "signAndEditExecutable": false
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "artifactName": "dier-chat-${version}-Setup.${ext}",
-      "shortcutName": "DierCHAT",
-      "uninstallDisplayName": "DierCHAT"
-    },
-    "portable": {
-      "artifactName": "dier-chat-${version}-Portable.${ext}"
-    }
+    "preview": "vite preview"
   },
   "dependencies": {
     "@emoji-mart/data": "^1.2.0",
@@ -96,15 +24,9 @@
     "zustand": "^5.0.0"
   },
   "devDependencies": {
-    "@capacitor/android": "^8.2.0",
-    "@capacitor/cli": "^8.2.0",
-    "@capacitor/core": "^8.2.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.0",
-    "concurrently": "^9.0.0",
-    "electron": "^33.0.0",
-    "electron-builder": "^25.0.0",
     "typescript": "^5.7.0",
     "vite": "^6.0.0"
   }

@@ -1,6 +1,6 @@
 # DierCHAT — выкладка на хост (продакшен)
 
-Краткий чеклист: **бэкенд**, **reverse proxy (nginx)**, **клиенты** (сайт / Electron / Android) с одним и тем же публичным URL API.
+Краткий чеклист: **бэкенд**, **reverse proxy (nginx)**, **веб-клиент** (статика Vite) с тем же публичным URL API.
 
 ---
 
@@ -46,7 +46,7 @@ WebSocket и REST идут **с одного порта** (маршрут `GET /
 
 1. Установите сертификат (Let’s Encrypt / certbot).
 2. Проксируйте `/api`, `/ws`, `/media` на `http://127.0.0.1:9000`.
-3. Для **веб-версии** раздайте статику из `DierCHAT-Desktop/dist/renderer` (после `npm run build:web:host`) или отдельный `root`.
+3. Для **веб-версии** раздайте статику из `DierCHAT-Desktop/dist/renderer` (после `npm run build:web` из каталога `DierCHAT-Desktop` или `.\build-web-host.ps1` из корня) либо отдельный `root`.
 
 Если сайт и API на **одном домене**, браузерный клиент сам возьмёт API с `window.location.origin` — удобно для PWA/веба.
 
@@ -62,7 +62,7 @@ WebSocket и REST идут **с одного порта** (маршрут `GET /
 - Service Worker и PWA-пути учитывают подкаталог (GitHub Pages project site).
 - Подробнее: **`GITHUB.md`**.
 
-## 3. Клиент DierCHAT-Desktop (Electron + веб + Android)
+## 3. Веб-клиент (`DierCHAT-Desktop`)
 
 ### Файл `.env.production`
 
@@ -80,46 +80,29 @@ VITE_API_BASE_URL=https://ваш-домен.ru
 
 Шаблоны: **`.env.production.example`**, **`.env.production.https.example`**.
 
-### Команды сборки «под хост»
+### Сборка статики (`dist/renderer`)
 
-| Задача | Команда (из `DierCHAT-Desktop`) |
-|--------|----------------------------------|
-| Проверка `.env.production` (не localhost) | `npm run verify:host-env` |
-| Печать URL из `.env.production` | `node scripts/print-release-api.cjs` |
-| Electron (tsc + vite + упаковка) | `npm run package:host` |
-| Только билд Electron без упаковки | `npm run build:host` |
-| Статика для сайта (`dist/renderer`) | `npm run build:web:host` |
-| Android: синхронизация после веб-билда | `npm run cap:sync:host` |
-| Android APK для телефона (подписанный debug) | `npm run android:build:release:host` |
-| Android release для Play (нужен keystore) | `npm run android:build:store:host` |
-| Подпись keystore | см. **`DierCHAT-Desktop/android/APK-BUILD.md`** |
-| **Всё сразу:** Windows + Android | `npm run release:host:all` |
+| Задача | Команда |
+|--------|---------|
+| Статика для сайта | из **`DierCHAT-Desktop`**: `npm run build:web` (или `npm run build`) |
+| То же из корня репозитория | `.\build-web-host.ps1` (ожидает `DierCHAT-Desktop\.env.production`) |
+| Скопировать в `DierCHAT-Server/web/` | `.\scripts\sync-web-to-server.ps1` или `.\build-web.bat` |
 
-Локальная сборка с `localhost` в `VITE_API_BASE_URL` **намеренно блокируется** скриптом `verify-prod-env.cjs`. Обход только осознанно: `set SKIP_HOST_ENV_CHECK=1` (Windows) перед командой.
+Перед прод-сборкой убедитесь, что в `.env.production` указан **реальный** хост API (не `localhost`), иначе клиент не сможет достучаться до сервера у пользователей.
 
 ### Windows PowerShell (важно)
 
-- В **Windows PowerShell 5.1** (встроенная в Windows) **нет** оператора `&&`. Пишите **две строки** или используйте **`;`**:
+- В **Windows PowerShell 5.1** **нет** оператора `&&`. Пишите **две строки** или **`;`**:
   ```powershell
   cd DierCHAT-Desktop
-  npm run build:web:host
+  npm run build:web
   ```
   ```powershell
-  cd DierCHAT-Desktop; npm run build:web:host
+  cd DierCHAT-Desktop; npm run build:web
   ```
-- Команда перехода в папку — **`cd`**, не `d`.
-- **`npm run ...`** нужно запускать из папки **`DierCHAT-Desktop`**, где лежит `package.json`. Из корня `DierCHAT` npm выдаст `ENOENT`.
-- В **PowerShell 7+** (`pwsh`) уже есть `&&`: `cd DierCHAT-Desktop && npm run build:web:host`
-- Из **корня репозитория** можно без `cd`: `.\build-web-host.ps1` (веб под хост).
-
-```powershell
-cd DierCHAT-Desktop
-.\scripts\build-host.ps1
-# Только portable:
-.\scripts\build-host.ps1 -Portable
-# Android release под хост:
-.\scripts\build-host.ps1 -AndroidRelease
-```
+- **`npm run ...`** запускайте из папки **`DierCHAT-Desktop`**, где лежит `package.json`.
+- В **PowerShell 7+**: `cd DierCHAT-Desktop && npm run build:web`
+- Из **корня**: `.\build-web-host.ps1`
 
 ---
 
@@ -128,7 +111,7 @@ cd DierCHAT-Desktop
 1. Деплой **сервера** (новый бинарник/образ + миграции при необходимости).
 2. Проверка **nginx** и `cdn_base_url` / доступность `/media`.
 3. Сборка **клиентов** с актуальным `.env.production`.
-4. Публикация **сайта** (если есть), **EXE/Portable**, **APK** в магазин/сайт.
+4. Публикация **сайта** (статика в nginx / `DierCHAT-Server/web` / GitHub Pages).
 
 ---
 

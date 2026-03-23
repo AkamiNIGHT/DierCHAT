@@ -112,21 +112,17 @@ go run ./cmd/server
 В логе должно быть: **`PostgreSQL подключен`**, **`HTTP сервер запущен на 0.0.0.0:19080`** (порт из `config.local.json`).  
 Если видите только предупреждение про недоступный Postgres — проверьте шаг 2 и переменную **`DIERCHAT_CONFIG`**.
 
-4. **Клиент (Electron + Vite):**
+4. **Веб-клиент (Vite):**
 
 ```powershell
 cd DierCHAT-Desktop
-# В .env не задавайте VITE_API_BASE_URL для локального API (Electron+Vite ходят на прокси :5173 → :19080)
+# Для локального API не задавайте VITE_API_BASE_URL — Vite проксирует :5173 → :19080
 npm run dev
 ```
 
-Если **`JavaScript heap out of memory`** / падает esbuild: закройте лишние приложения, либо откройте **только браузер** без Electron:
+Откройте в браузере URL из консоли Vite (обычно **http://localhost:5173**). Сервер Go должен быть запущен.
 
-```powershell
-npm run dev:web
-```
-
-(тот же Vite на **5173**, API через прокси на **127.0.0.1:19080** — сервер Go должен быть запущен).
+Если **`JavaScript heap out of memory`** / падает сборка: закройте лишние приложения; в `package.json` для `dev` уже задан больший лимит heap для Node.
 
 Скрипты **`scripts/local-*.ps1`**: в `Write-Host` используется **только ASCII**, чтобы Windows PowerShell 5.1 не ломался на кодировке UTF-8 без BOM.
 

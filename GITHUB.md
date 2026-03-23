@@ -50,7 +50,7 @@ git push --force origin main
 - Сначала **`cd C:\Users\User\Desktop\DierCHAT`**, потом `git status` / `git add` — не из `C:\Windows\System32`.
 - Сначала **`git commit`**, потом **`git push`**. Иначе push пишет `src refspec main does not match any`.
 
-## Первый коммит затянул `release/`, `DIERbrowser/bin`, `media/` — как исправить
+## Первый коммит затянул `release/`, `media/` и т.п. — как исправить
 
 **Важно:** если тяжёлые файлы уже попали **в коммит**, то новый коммит, который их «удаляет», **не уменьшает** объём при `push` — в истории остаются гигабайты, GitHub часто отвечает `HTTP 500`, `RPC failed`, `Broken pipe` (у вас было **~3.8 GiB**).
 
@@ -68,7 +68,7 @@ git add .
 git status
 ```
 
-Проверьте в `git status`, что **нет** путей вроде `node_modules`, `DierCHAT-Desktop\release`, `DierCHAT-Server\media`, `DIERbrowser\bin`. Затем:
+Проверьте в `git status`, что **нет** путей вроде `node_modules`, `DierCHAT-Desktop\release`, `DierCHAT-Server\media`, `DierCHAT-Server\web`. Затем:
 
 ```powershell
 git commit -m "Initial: DierCHAT monorepo"
@@ -88,7 +88,7 @@ git push -u origin main --force
 
 ## Комментарии в коде на русском
 
-Полная замена комментариев во **всех** файлах — отдельный большой этап. Новые модули (WebRTC ICE, IndexedDB устройств) оформлены блоками на русском. Шаблон для остального: `DierCHAT-Desktop/docs/COMMENTING-RU.md`.
+Полная замена комментариев во **всех** файлах — отдельный большой этап. Новые модули (WebRTC ICE, IndexedDB устройств) оформлены блоками на русском; остальное постепенно приводите к тому же стилю.
 
 ## Бесплатный хостинг
 

@@ -1,0 +1,15 @@
+{
+  "appId": "com.dierchat.app",
+  "appName": "DierCHAT",
+  "webDir": "dist/renderer",
+  "server": {
+    "androidScheme": "https",
+    "allowNavigation": [
+      "https?:\\/\\/.*",
+      "about:.*"
+    ]
+  },
+  "android": {
+    "allowMixedContent": true
+  }
+}

@@ -1,0 +1,67 @@
+.group-call-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  margin: 0 12px 8px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+}
+
+.group-call-banner--active {
+  background: linear-gradient(135deg, rgba(51, 144, 236, 0.15), rgba(124, 58, 237, 0.12));
+  color: var(--text-primary);
+}
+
+.group-call-banner--ended {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+.group-call-banner__pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 10px #22c55e;
+  animation: gcb-pulse 1.2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes gcb-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.15);
+  }
+}
+
+.group-call-banner__text {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.35;
+}
+
+.group-call-banner__dismiss {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.group-call-banner__dismiss:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+}

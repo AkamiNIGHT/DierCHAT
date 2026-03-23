@@ -1,0 +1,235 @@
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-primary: #17212b;
+  --bg-secondary: #0e1621;
+  --bg-chat: #0e1621;
+  --bg-message-own: #2b5278;
+  --bg-message-other: #182533;
+  --bg-input: #242f3d;
+  --bg-hover: #1e2c3a;
+  --bg-selected: #2b5278;
+  --text-primary: #f5f5f5;
+  --text-secondary: #6c7883;
+  --text-link: #6ab2f2;
+  --accent: #3390ec;
+  --accent-hover: #4da3f4;
+  --accent-text: #6ab2f2;
+  --border: #101921;
+  --danger: #e53935;
+  --success: #4caf50;
+  --badge: #3390ec;
+  --shadow: rgba(0,0,0,0.4);
+  --radius: 10px;
+  --radius-sm: 8px;
+  --radius-lg: 16px;
+  --header-bg: #17212b;
+  --transition: 0.15s ease;
+  --bubble-radius: 12px;
+}
+
+[data-theme='light'] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f0f2f5;
+  --bg-chat: #e8dfd7;
+  --bg-message-own: #effdde;
+  --bg-message-other: #ffffff;
+  --bg-input: #f0f2f5;
+  --bg-hover: #e4e6ea;
+  --bg-selected: #c8e1fb;
+  --text-primary: #0e1621;
+  --text-secondary: #707579;
+  --text-link: #3390ec;
+  --accent: #3390ec;
+  --accent-hover: #2b7ed8;
+  --accent-text: #3390ec;
+  --border: #dfe1e5;
+  --shadow: rgba(0,0,0,0.1);
+  --header-bg: #ffffff;
+}
+
+html, body, #root { height: 100%; overflow: hidden; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  transition: background var(--transition), color var(--transition);
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+[data-theme='light'] ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); }
+[data-theme='light'] ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.25); }
+* { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.1) transparent; }
+
+::selection { background: var(--accent); color: #fff; }
+input, textarea, button { font-family: inherit; }
+a { color: var(--text-link); text-decoration: none; }
+
+/* Mobile-friendly touch targets */
+@media (max-width: 767px) {
+  button, [role="button"] { min-height: 36px; }
+  input, textarea { font-size: 16px !important; }
+}
+
+/* Prevent iOS zoom on input focus */
+@media (max-width: 767px) {
+  input[type="text"], input[type="tel"], input[type="email"],
+  input[type="password"], textarea, select {
+    font-size: 16px;
+  }
+}
+
+/* Safe area (viewport-fit=cover в index.html). На Android без insets — минимальный отступ под жест. панель */
+@supports (padding: env(safe-area-inset-top)) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: max(env(safe-area-inset-bottom), 0px);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+:root {
+  --nav-bottom-safe: max(env(safe-area-inset-bottom, 0px), 10px);
+}
+
+/* Compact, flexible spacing */
+.layout {
+  --sidebar-gap: 0;
+  --content-padding: 12px;
+}
+
+/* Liquid Glass (ТЗ раздел 23) */
+.glass-panel {
+  background: rgba(23, 33, 43, 0.6);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+[data-theme='light'] .glass-panel {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .glass-panel {
+    background: var(--bg-secondary);
+  }
+}
+
+/* §23 — модальные окна и оверлеи при Liquid Glass */
+html[data-liquid-glass='on'] .modal-overlay {
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+}
+html[data-liquid-glass='on'] .modal {
+  background: rgba(23, 33, 43, 0.88);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+}
+html[data-theme='light'][data-liquid-glass='on'] .modal {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+}
+html[data-liquid-glass='on'] .cip-modal-overlay {
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+}
+html[data-liquid-glass='on'] .cip-modal {
+  background: rgba(23, 33, 43, 0.9);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+}
+html[data-theme='light'][data-liquid-glass='on'] .cip-modal {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+html[data-liquid-glass='on'] .mi-poll-overlay {
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+}
+html[data-liquid-glass='on'] .mi-poll-modal {
+  background: rgba(23, 33, 43, 0.9);
+  backdrop-filter: blur(20px) saturate(170%);
+  -webkit-backdrop-filter: blur(20px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+html[data-theme='light'][data-liquid-glass='on'] .mi-poll-modal {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+html[data-liquid-glass='on'] .chat-view__forward-overlay {
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+}
+html[data-liquid-glass='on'] .chat-view__forward-modal {
+  background: rgba(23, 33, 43, 0.9);
+  backdrop-filter: blur(20px) saturate(170%);
+  -webkit-backdrop-filter: blur(20px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+html[data-theme='light'][data-liquid-glass='on'] .chat-view__forward-modal {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+html[data-liquid-glass='on'] .dl-dropdown {
+  background: rgba(23, 33, 43, 0.92);
+  backdrop-filter: blur(18px) saturate(170%);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+}
+html[data-theme='light'][data-liquid-glass='on'] .dl-dropdown {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+html[data-liquid-glass='on'] .dl-ctx {
+  background: rgba(23, 33, 43, 0.94);
+  backdrop-filter: blur(18px) saturate(170%);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+}
+html[data-theme='light'][data-liquid-glass='on'] .dl-ctx {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+@supports not (backdrop-filter: blur(1px)) {
+  html[data-liquid-glass='on'] .modal-overlay,
+  html[data-liquid-glass='on'] .cip-modal-overlay,
+  html[data-liquid-glass='on'] .mi-poll-overlay,
+  html[data-liquid-glass='on'] .chat-view__forward-overlay {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(0, 0, 0, 0.65);
+  }
+  html[data-liquid-glass='on'] .modal,
+  html[data-liquid-glass='on'] .cip-modal,
+  html[data-liquid-glass='on'] .mi-poll-modal,
+  html[data-liquid-glass='on'] .chat-view__forward-modal,
+  html[data-liquid-glass='on'] .dl-dropdown,
+  html[data-liquid-glass='on'] .dl-ctx {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}

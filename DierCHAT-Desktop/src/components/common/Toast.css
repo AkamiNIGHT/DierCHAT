@@ -1,0 +1,68 @@
+.message-toast-container {
+  position: fixed;
+  z-index: 10040;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: min(360px, calc(100vw - 24px));
+  pointer-events: none;
+}
+
+.message-toast-container > * {
+  pointer-events: auto;
+}
+
+/* ТЗ §38: ПК — справа снизу; телефон — сверху */
+@media (min-width: 768px) {
+  .message-toast-container {
+    right: 20px;
+    bottom: 24px;
+    left: auto;
+    transform: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .message-toast-container {
+    top: calc(12px + env(safe-area-inset-top, 0px));
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: auto;
+  }
+}
+
+.message-toast {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 12px 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  color: var(--text-primary);
+}
+
+.message-toast:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.message-toast__sender {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--accent);
+}
+
+.message-toast__text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}

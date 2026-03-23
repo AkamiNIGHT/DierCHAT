@@ -1,0 +1,66 @@
+# Секреты деплоя (пароли SSH не хранить в репозитории)
+deploy-host.env
+deploy-host.local.env
+**/secrets.local.json
+
+# Node (не коммитить — иначе Windows: «Filename too long» и гигабайты мусора)
+node_modules/
+**/node_modules/
+
+# Сборка Vite / Electron (на CI собирается заново)
+DierCHAT-Desktop/dist/
+DierCHAT-Desktop/release/
+
+# DIERbrowser (.NET): только артефакты сборки; исходники *.cs — в git
+DIERbrowser/bin/
+DIERbrowser/obj/
+
+# Vite кэш
+DierCHAT-Desktop/node_modules/.vite/
+
+# Локальные env (шаблоны *.example остаются)
+**/.env
+!**/.env.example
+!**/.env.*.example
+
+# Локальный порт API для Vite (scripts/set-desktop-vite-api-port.ps1)
+DierCHAT-Desktop/.env.development.local
+
+# Продакшен-клиент: URL API вшивается при сборке (шаблоны: .env.production*.example)
+DierCHAT-Desktop/.env.production
+
+# Сервер: рабочий конфиг с паролями (шаблон: config.deploy.example.json)
+DierCHAT-Server/config.json
+# Локальная разработка (порты, пути)
+DierCHAT-Server/config.local.json
+# Загруженные пользователями файлы — не в публичный git
+DierCHAT-Server/media/
+# Сборки Go под Windows / мусор
+DierCHAT-Server/*.exe
+DierCHAT-Server/aqtinstall.log
+
+# Корневой config.json, если держите секреты локально
+/config.json
+
+# Архивы и пакеты деплоя (пересобирайте при необходимости)
+*.zip
+deploy-package/
+
+# Собранный DIERbrowser.exe для вшивания в Electron (npm run browser:pack-win)
+DierCHAT-Desktop/browser-bundle/DIERbrowser.exe
+
+# Android: подпись APK (шаблон android/keystore.properties.example)
+DierCHAT-Desktop/android/keystore.properties
+DierCHAT-Desktop/android/release.keystore
+# Gradle / сборки Android (Capacitor кладёт build и внутри node_modules — не в git)
+DierCHAT-Desktop/android/**/build/
+DierCHAT-Desktop/android/.gradle/
+DierCHAT-Desktop/android/local.properties
+DierCHAT-Desktop/android/app/release/
+DierCHAT-Desktop/android/captures/
+
+# Тяжёлые сторонние деревья исходников (не нужны для CI/GitHub Pages)
+firefox-main/
+Telegram-iOS-master/
+Telegram-master/
+tdesktop-dev/

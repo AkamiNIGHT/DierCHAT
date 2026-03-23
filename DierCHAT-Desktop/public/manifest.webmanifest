@@ -1,0 +1,23 @@
+{
+  "id": "./",
+  "name": "DierCHAT",
+  "short_name": "DierCHAT",
+  "description": "Мессенджер в стиле Telegram Web",
+  "lang": "ru",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "display_override": ["standalone", "browser"],
+  "background_color": "#0d1117",
+  "theme_color": "#3390ec",
+  "orientation": "portrait-primary",
+  "categories": ["social", "communication"],
+  "icons": [
+    {
+      "src": "icon.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+    "server": {
+        "host": "0.0.0.0",
+        "port": 9000,
+        "ws_port": 8081,
+        "tls_cert": "",
+        "tls_key": "",
+        "max_file_size": 2147483648
+    },
+    "database": {
+        "host": "127.0.0.1",
+        "port": 5432,
+        "user": "dierchat",
+        "password": "dierchat_secure_pass",
+        "dbname": "dierchat",
+        "sslmode": "disable"
+    },
+    "redis": {
+        "host": "127.0.0.1",
+        "port": 6379,
+        "password": "",
+        "db": 0
+    },
+    "jwt": {
+        "secret": "dierchat-secret-CHANGE-THIS-IN-PRODUCTION",
+        "expiration": "720h"
+    },
+    "media": {
+        "storage_path": "./media",
+        "max_file_size": 2147483648,
+        "cdn_base_url": "http://31.148.99.40:9000/media"
+    },
+    "smtp": {
+        "host": "smtp.gmail.com",
+        "port": 587,
+        "login": "dier.groups@gmail.com",
+        "password": "mvgksyxykxrfgftn",
+        "from": "dier.groups@gmail.com"
+    },
+    "push": {
+        "vapid_public_key": "",
+        "vapid_private_key": ""
+    }
+}

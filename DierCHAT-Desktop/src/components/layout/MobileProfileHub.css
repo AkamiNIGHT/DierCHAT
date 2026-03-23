@@ -1,0 +1,88 @@
+.mobile-profile-hub {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  background: var(--bg-chat);
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.mobile-profile-hub__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.mobile-profile-hub__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.mobile-profile-hub__close {
+  border: none;
+  background: var(--bg-hover);
+  color: var(--text-secondary);
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-profile-hub__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 24px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+
+.mobile-profile-hub__name {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.mobile-profile-hub__username {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.mobile-profile-hub__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-profile-hub__btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+}
+
+.mobile-profile-hub__btn:hover {
+  background: var(--bg-hover);
+}
+
+.mobile-profile-hub__btn--danger {
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.35);
+}

@@ -1,0 +1,30 @@
+# Локальная разработка: PostgreSQL + Redis (из корня репозитория DierCHAT)
+# Запуск: docker compose -f docker-compose.local.yml up -d
+# DierCHAT-Server/config.local.json: Postgres host port 5435, Redis 6380 (avoid 5433/6379 conflicts)
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: dierchat
+      POSTGRES_USER: dierchat
+      POSTGRES_PASSWORD: dierchat_secure_pass
+    ports:
+      - "5435:5432"
+    volumes:
+      - dierchat_pgdata_local:/var/lib/postgresql/data
+      - ./DierCHAT-Server/migrations/001_init.sql:/docker-entrypoint-initdb.d/001_init.sql
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      # 6380 на хосте — чтобы не конфликтовать с другим Redis на 6379
+      - "6380:6379"
+    volumes:
+      - dierchat_redisdata_local:/data
+    restart: unless-stopped
+
+volumes:
+  dierchat_pgdata_local:
+  dierchat_redisdata_local:

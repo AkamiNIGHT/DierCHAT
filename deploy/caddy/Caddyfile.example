@@ -1,0 +1,16 @@
+# DierCHAT — пример Caddy 2 (TLS выдаётся автоматически)
+# Запуск: caddy run --config /path/to/Caddyfile
+#
+# Прод: dier-chat.ru — бэкенд 127.0.0.1:9000
+
+dier-chat.ru, www.dier-chat.ru {
+    encode gzip zstd
+
+    # Один бэкенд: статика SPA + API + /media + WebSocket
+    reverse_proxy 127.0.0.1:9000 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+}

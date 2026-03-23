@@ -1,0 +1,211 @@
+.cip {
+  width: 320px; min-width: 320px; height: 100%;
+  background: var(--bg-secondary); border-left: 1px solid var(--border);
+  display: flex; flex-direction: column; overflow: hidden;
+  animation: cipIn 0.2s ease;
+}
+@keyframes cipIn { from { transform: translateX(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+.cip-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+  background: var(--header-bg);
+}
+.cip-header h3 { font-size: 16px; font-weight: 600; }
+.cip-close {
+  width: 32px; height: 32px; border: none; border-radius: 50%;
+  background: transparent; color: var(--text-secondary); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.cip-close:hover { background: var(--bg-hover); }
+
+.cip-content { flex: 1; overflow-y: auto; }
+
+.cip-profile {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  padding: 24px 16px 16px;
+}
+.cip-name { font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.cip-edit-title {
+  width: 28px; height: 28px; padding: 0; border: none; border-radius: 50%;
+  background: transparent; color: var(--text-secondary); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.cip-edit-title:hover { background: var(--bg-hover); color: var(--accent); }
+.cip-rename-wrap { display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 260px; }
+.cip-rename-input {
+  padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--bg-input); color: var(--text-primary); font-size: 15px;
+}
+.cip-rename-input:focus { outline: none; border-color: var(--accent); }
+.cip-rename-actions { display: flex; gap: 8px; justify-content: center; }
+.cip-rename-btn {
+  padding: 6px 14px; border: none; border-radius: var(--radius-sm);
+  background: var(--accent); color: white; font-size: 13px; cursor: pointer;
+}
+.cip-rename-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.cip-rename-cancel { background: var(--bg-hover); color: var(--text-primary); }
+.cip-desc { font-size: 13px; color: var(--text-secondary); text-align: center; max-width: 260px; }
+.cip-meta { font-size: 13px; color: var(--text-secondary); }
+
+.cip-discussion-actions { width: 100%; max-width: 280px; margin-top: 8px; }
+.cip-discussion-btn {
+  width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px 14px; font-size: 14px; font-weight: 500;
+  color: var(--accent); background: var(--bg-input);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  cursor: pointer; transition: background var(--transition);
+}
+.cip-discussion-btn:disabled { opacity: 0.6; cursor: wait; }
+.cip-discussion-btn:hover:not(:disabled) { background: var(--bg-hover); }
+
+.cip-actions {
+  display: flex; justify-content: center; gap: 8px; padding: 8px 16px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.cip-action {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border: none; border-radius: var(--radius-sm);
+  background: var(--bg-input); color: var(--text-primary);
+  font-size: 13px; cursor: pointer; transition: background var(--transition);
+}
+.cip-action:hover { background: var(--bg-hover); }
+
+.cip-slow-mode {
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+}
+.cip-slow-mode-header {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600; color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.cip-slow-mode-body {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.cip-slow-mode-select {
+  padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--bg-input); color: var(--text-primary); font-size: 13px;
+  cursor: pointer; width: 100%;
+}
+.cip-slow-mode-select:focus { outline: none; border-color: var(--accent); }
+.cip-slow-mode-select:disabled { opacity: 0.6; cursor: not-allowed; }
+.cip-slow-mode-hint {
+  font-size: 11px; color: var(--text-secondary);
+}
+
+.cip-tabs {
+  display: flex; gap: 2px; padding: 6px 8px; overflow-x: auto;
+  border-bottom: 1px solid var(--border); scrollbar-width: none;
+}
+.cip-tabs::-webkit-scrollbar { display: none; }
+.cip-tab {
+  padding: 6px 10px; border: none; background: transparent;
+  color: var(--text-secondary); font-size: 12px; cursor: pointer;
+  border-radius: 14px; white-space: nowrap;
+  display: flex; align-items: center; gap: 4px;
+  transition: all var(--transition);
+}
+.cip-tab:hover { background: var(--bg-hover); }
+.cip-tab--active { color: var(--accent); background: rgba(51,144,236,0.12); }
+
+.cip-tab-content { padding: 8px 0; }
+
+.cip-members { display: flex; flex-direction: column; }
+.cip-member {
+  display: flex; align-items: center; gap: 10px; padding: 8px 16px;
+  cursor: pointer; transition: background var(--transition);
+}
+.cip-member:hover { background: var(--bg-hover); }
+.cip-member-info { display: flex; flex-direction: column; }
+.cip-member-name { font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 4px; }
+.cip-member-badge { color: var(--accent); }
+.cip-member-status { font-size: 12px; color: var(--text-secondary); }
+
+.cip-empty { padding: 32px; text-align: center; color: var(--text-secondary); font-size: 13px; }
+
+.cip-tab-body { padding: 8px 16px; }
+.cip-media-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;
+}
+.cip-media-item {
+  aspect-ratio: 1; border-radius: 6px; overflow: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  background: var(--bg-input); text-decoration: none; color: inherit;
+}
+.cip-media-item img { width: 100%; height: 100%; object-fit: cover; }
+.cip-media-file { display: flex; flex-direction: column; align-items: center; padding: 8px; font-size: 10px; }
+.cip-media-time { font-size: 10px; color: var(--text-secondary); padding: 2px; }
+.cip-list { display: flex; flex-direction: column; gap: 4px; }
+.cip-fav-item, .cip-link-item, .cip-voice-item {
+  padding: 8px 12px; border-radius: var(--radius-sm);
+  background: var(--bg-input); display: flex; align-items: center; gap: 8px;
+}
+.cip-link-item { text-decoration: none; color: inherit; }
+.cip-fav-item p { margin: 0; font-size: 13px; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cip-fav-time, .cip-link-time, .cip-voice-time { font-size: 11px; color: var(--text-secondary); }
+.cip-link-url { flex: 1; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Invite link */
+.cip-invite-link {
+  padding: 8px 16px; display: flex; flex-direction: column; gap: 4px;
+  border-bottom: 1px solid var(--border);
+}
+.cip-invite-label { font-size: 11px; color: var(--text-secondary); }
+.cip-invite-code {
+  font-size: 13px; color: var(--accent); cursor: pointer;
+  font-family: monospace; word-break: break-all;
+}
+.cip-invite-code:hover { text-decoration: underline; }
+
+/* Member role button */
+.cip-member-role-btn {
+  margin-left: auto; width: 32px; height: 32px;
+  border: none; border-radius: 50%; background: transparent;
+  color: var(--accent); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background var(--transition);
+}
+.cip-member-role-btn:hover { background: var(--bg-hover); }
+
+/* Add member modal */
+.cip-modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+  z-index: 200; display: flex; align-items: center; justify-content: center;
+  animation: callFadeIn 0.15s ease;
+}
+@keyframes callFadeIn { from { opacity: 0; } to { opacity: 1; } }
+.cip-modal {
+  background: var(--bg-primary); border-radius: var(--radius-lg);
+  width: 360px; max-width: 90vw; max-height: 70vh;
+  display: flex; flex-direction: column;
+  box-shadow: 0 12px 48px var(--shadow);
+}
+.cip-modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px; border-bottom: 1px solid var(--border);
+}
+.cip-modal-header h3 { font-size: 16px; font-weight: 600; margin: 0; }
+.cip-modal-input {
+  margin: 12px 16px 8px; padding: 10px 12px;
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--bg-input); color: var(--text-primary);
+  font-size: 14px; outline: none;
+}
+.cip-modal-input:focus { border-color: var(--accent); }
+.cip-modal-list { flex: 1; overflow-y: auto; padding: 0 8px 12px; }
+.cip-modal-user {
+  display: flex; align-items: center; gap: 10px; padding: 8px;
+  border-radius: var(--radius-sm); cursor: pointer;
+  transition: background var(--transition);
+}
+.cip-modal-user:hover { background: var(--bg-hover); }
+.cip-modal-user-info { display: flex; flex-direction: column; }
+.cip-modal-user-name { font-size: 14px; font-weight: 500; }
+.cip-modal-user-sub { font-size: 12px; color: var(--text-secondary); }
+
+@media (max-width: 767px) {
+  .cip {
+    position: fixed; inset: 0; width: 100%; min-width: 0;
+    z-index: 50; border-left: none;
+  }
+}

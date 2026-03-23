@@ -1,0 +1,102 @@
+.message-list-outer {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* Без лишних 48px по бокам — иначе колонка визуально «уезжает вправо» */
+.message-list {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px 16px;
+  display: flex; flex-direction: column; gap: 2px;
+  position: relative;
+}
+
+.message-list--virtuoso {
+  padding: 8px 16px;
+  overflow-x: hidden;
+}
+
+/* Virtuoso: только вертикальный скролл */
+.message-list-outer [data-virtuoso-scroller] {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+.message-list__jump-down {
+  position: sticky; bottom: 12px; left: 50%;
+  transform: translateX(-50%);
+  width: 40px; height: 40px;
+  border: none; border-radius: 50%;
+  background: var(--accent); color: white;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 12px var(--shadow);
+  z-index: 20; margin: 0 auto 8px;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.message-list__jump-down:hover {
+  opacity: 0.9; transform: translateX(-50%) scale(1.05);
+}
+.message-list__jump-badge {
+  position: absolute; top: -8px; right: -6px;
+  min-width: 20px; height: 20px; padding: 0 6px;
+  border-radius: 10px; background: var(--danger, #e53935);
+  color: #fff; font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  line-height: 1;
+}
+
+.message-list__jump-down--float {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .message-list { padding: 8px 14px; }
+  .message-list--virtuoso { padding: 8px 14px; }
+}
+@media (max-width: 767px) {
+  .message-list { padding: 8px 8px; }
+  .message-list--virtuoso { padding: 8px 8px; }
+}
+
+.message-list__date-separator {
+  display: flex; justify-content: center; padding: 12px 0 6px;
+}
+.message-list__date-label {
+  font-size: 12px; color: var(--text-secondary);
+  background: rgba(0,0,0,0.2); padding: 4px 12px;
+  border-radius: 12px; user-select: none;
+  font-weight: 500; backdrop-filter: blur(8px);
+  transition: opacity 0.3s;
+}
+[data-theme='light'] .message-list__date-label {
+  background: rgba(0,0,0,0.06);
+}
+
+.message-list__group--flash {
+  animation: msgFlashHighlight 1.5s ease-out;
+}
+@keyframes msgFlashHighlight {
+  0% { background-color: rgba(51, 144, 236, 0.35); }
+  100% { background-color: transparent; }
+}
+
+.message-list__group {
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: 1px; margin-bottom: 2px;
+}
+.message-list__group--own { align-items: flex-end; }
+.message-list__loading {
+  display: flex; justify-content: center; padding: 16px; font-size: 13px; color: var(--text-secondary);
+}

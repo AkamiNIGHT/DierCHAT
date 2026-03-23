@@ -1,0 +1,63 @@
+# ==================== БЛОК: ДЕПЛОЙ ВЕБ-КЛИЕНТА НА GITHUB PAGES ====================
+# Настройки репозитория: Settings → Pages → Source: GitHub Actions.
+# Secrets: VITE_API_BASE_URL, при необходимости VITE_WS_URL, VITE_TURN_*.
+# VITE_BASE_PATH: по умолчанию /ИМЯ_РЕПО/; иначе задайте переменную репозитория VITE_BASE_PATH.
+
+name: Deploy web to GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: DierCHAT-Desktop/package-lock.json
+
+      - name: Install & build (Vite)
+        working-directory: DierCHAT-Desktop
+        env:
+          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
+          VITE_WS_URL: ${{ secrets.VITE_WS_URL }}
+          VITE_WS_PORT: ${{ secrets.VITE_WS_PORT }}
+          VITE_TURN_URLS: ${{ secrets.VITE_TURN_URLS }}
+          VITE_TURN_USERNAME: ${{ secrets.VITE_TURN_USERNAME }}
+          VITE_TURN_CREDENTIAL: ${{ secrets.VITE_TURN_CREDENTIAL }}
+          VITE_WEBRTC_USE_TURN: ${{ secrets.VITE_WEBRTC_USE_TURN }}
+          VITE_BASE_PATH: ${{ vars.VITE_BASE_PATH != '' && vars.VITE_BASE_PATH || format('/{0}/', github.event.repository.name) }}
+        run: |
+          npm ci
+          npx vite build
+          # SPA на Pages: при прямом заходе по пути GitHub отдаёт 404 — дублируем index
+          cp dist/renderer/index.html dist/renderer/404.html
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: DierCHAT-Desktop/dist/renderer
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

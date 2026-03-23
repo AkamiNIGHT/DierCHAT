@@ -1,0 +1,29 @@
+# Локальная разработка: только PostgreSQL и Redis
+# Использование: docker compose -f docker-compose.local.yml up -d
+# Postgres host 5435; Redis host 6380
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: dierchat
+      POSTGRES_USER: dierchat
+      POSTGRES_PASSWORD: dierchat_secure_pass
+    ports:
+      - "5435:5432"
+    volumes:
+      - pgdata_local:/var/lib/postgresql/data
+      - ./migrations/001_init.sql:/docker-entrypoint-initdb.d/001_init.sql
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6380:6379"
+    volumes:
+      - redisdata_local:/data
+    restart: unless-stopped
+
+volumes:
+  pgdata_local:
+  redisdata_local:

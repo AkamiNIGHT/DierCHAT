@@ -1,0 +1,15 @@
+[Unit]
+Description=DierCHAT Messenger Server
+# Имена юнитов на разных ОС различаются; только сеть — без лишних предупреждений в journalctl
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/dierchat
+ExecStart=/opt/dierchat/dierchat
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

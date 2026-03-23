@@ -1,4 +1,4 @@
 {
-  "apiBaseUrl": "https://dier-chat.ru",
-  "wsUrl": "wss://dier-chat.ru"
+  "apiBaseUrl": "http://31.148.99.40:9000",
+  "wsUrl": "http://31.148.99.40:9000"
 }

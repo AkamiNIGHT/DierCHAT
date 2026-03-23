@@ -1,0 +1,4 @@
+{
+  "apiBaseUrl": "https://dier-chat.ru",
+  "wsUrl": "wss://dier-chat.ru"
+}
